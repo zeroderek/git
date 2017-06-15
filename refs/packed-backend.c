@@ -253,9 +253,7 @@ static struct packed_ref_cache *read_packed_refs(const char *packed_refs_file)
 			    (peeled == PEELED_TAGS && starts_with(refname, "refs/tags/")))
 				last->flag |= REF_KNOWS_PEELED;
 			add_ref_entry(dir, last);
-			continue;
-		}
-		if (last &&
+		} else if (last &&
 		    line.buf[0] == '^' &&
 		    line.len == PEELED_LINE_LENGTH &&
 		    line.buf[PEELED_LINE_LENGTH - 1] == '\n' &&
@@ -267,6 +265,8 @@ static struct packed_ref_cache *read_packed_refs(const char *packed_refs_file)
 			 * reference:
 			 */
 			last->flag |= REF_KNOWS_PEELED;
+		} else {
+			die("unexpected line in %s: %s", packed_refs_file, line.buf);
 		}
 	}
 
