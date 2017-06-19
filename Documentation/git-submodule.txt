@@ -24,7 +24,7 @@ DESCRIPTION
 -----------
 Inspects, updates and manages submodules.
 
-For more information about submodules, see linkgit:gitsubmodules[5]
+For more information about submodules, see linkgit:gitsubmodules[7].
 
 COMMANDS
 --------
