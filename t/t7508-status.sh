@@ -1640,4 +1640,17 @@ test_expect_success 'no additionnal info if no stash entries' '
 	test_cmp expected_without_stash actual
 '
 
+test_expect_success 'No commits yet should be noted in status output' '
+	git init initial &&
+	(
+		cd initial &&
+		git status >output &&
+		test_i18ngrep "No commits yet" output &&
+		test_commit initial &&
+		git status >output &&
+		test_i18ngrep ! "No commits yet" output &&
+		test_i18ngrep "nothing.*to commit" output
+	)
+'
+
 test_done
